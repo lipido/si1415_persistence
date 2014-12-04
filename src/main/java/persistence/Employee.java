@@ -3,6 +3,7 @@ package persistence;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Employee {
@@ -13,6 +14,9 @@ public class Employee {
 	
 	private String name;
 	private double salary;
+	
+	@ManyToOne
+	private Department department;
 	
 	public int getId() {
 		return id;
@@ -30,10 +34,20 @@ public class Employee {
 	public void setSalary(double salary) {
 		this.salary = salary;
 	}
+	
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+	
+	public Department getDepartment() {
+		return department;
+	}
 
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", salary=" + salary
-				+ "]";
+				+ ", department=" + department + "]";
 	}
+	
+
 }

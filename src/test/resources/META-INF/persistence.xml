@@ -4,9 +4,7 @@
              version="2.0">
 <persistence-unit name="si-database" transaction-type="RESOURCE_LOCAL">
       <class>persistence.Employee</class>
-      <!-- <class>sing.proyectosi.Department</class>
-      <class>sing.proyectosi.Project</class>
-      <class>sing.proyectosi.Address</class> -->
+      <class>persistence.Department</class>
       <properties>
          <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
          <property name="javax.persistence.jdbc.user" value="siuser"/>
