@@ -46,6 +46,8 @@ public class Department {
 		return Collections.unmodifiableList(employees);
 	}
 	
+	//See http://blog.xebia.com/2009/03/16/jpa-implementation-patterns-
+	//bidirectional-assocations/
 	void internalAddEmployee(Employee e) {
 		this.employees.add(e);
 	}
