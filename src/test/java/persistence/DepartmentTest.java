@@ -37,7 +37,6 @@ public class DepartmentTest {
 		final Department d = new Department();
 		d.setName("dept-testCreateDepartmentWithEmployee");
 		
-		emp.setDepartment(d);
 		d.addEmployee(emp);
 		
 		
@@ -65,5 +64,23 @@ public class DepartmentTest {
 						"dept-testCreateDepartmentWithEmployee");
 			}
 		});
+	}
+	
+	@Test
+	public void testBidirectionalPattern() {
+		Department d1 = new Department();
+		Department d2 = new Department();
+		
+		Employee mobileEmployee = new Employee();
+		
+		d1.addEmployee(mobileEmployee);
+		
+		assertEquals(d1, mobileEmployee.getDepartment());
+		
+		//move the employee
+		mobileEmployee.setDepartment(d2);
+		
+		assertEquals(0, d1.getEmployees().size());
+		assertEquals(1, d2.getEmployees().size());
 	}
 }

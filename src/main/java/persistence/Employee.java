@@ -36,7 +36,13 @@ public class Employee {
 	}
 	
 	public void setDepartment(Department department) {
+		if (this.department != null) {
+			this.department.internalRemoveEmployee(this);
+		}
 		this.department = department;
+		if (department != null) {
+			department.internalAddEmployee(this);
+		}
 	}
 	
 	public Department getDepartment() {

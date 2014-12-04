@@ -1,5 +1,6 @@
 package persistence;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +35,23 @@ public class Department {
 	}
 	
 	public void addEmployee(Employee emp) {
-		this.employees.add(emp);
+		emp.setDepartment(this);
+	}
+	
+	public void removeEmployee(Employee emp) {
+		emp.setDepartment(null);
+	}
+	
+	public List<Employee> getEmployees() {
+		return Collections.unmodifiableList(employees);
+	}
+	
+	void internalAddEmployee(Employee e) {
+		this.employees.add(e);
+	}
+	
+	void internalRemoveEmployee(Employee e) {
+		this.employees.remove(e);
 	}
 	
 }
