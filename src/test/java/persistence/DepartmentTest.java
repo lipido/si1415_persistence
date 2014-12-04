@@ -1,12 +1,14 @@
 package persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static persistence.TransactionUtil.doTransaction;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.validation.ConstraintViolationException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -40,7 +42,7 @@ public class DepartmentTest {
 		d.addEmployee(emp);
 		
 		
-		TransactionUtil.doTransaction(emf, new Transaction(){
+		doTransaction(emf, new Transaction(){
 
 			@Override
 			public void doTransation(EntityManager em) {
@@ -50,7 +52,7 @@ public class DepartmentTest {
 			
 		});
 		
-		TransactionUtil.doTransaction(emf, new Transaction(){
+		doTransaction(emf, new Transaction(){
 			@Override
 			public void doTransation(EntityManager em) {
 				List<Employee> emps = em.createQuery("SELECT e FROM Employee e where "
@@ -82,5 +84,32 @@ public class DepartmentTest {
 		
 		assertEquals(0, d1.getEmployees().size());
 		assertEquals(1, d2.getEmployees().size());
+	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void testValidationNameNotNull() {
+		final Department d1 = new Department();
+		doTransaction(emf, new Transaction() {
+
+			@Override
+			public void doTransation(EntityManager em) {
+				em.persist(d1); //throws exception since the name is null
+			}
+			
+		});
+	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void testValidationNameTooShort() {
+		final Department d1 = new Department();
+		d1.setName("s"); // too short
+		doTransaction(emf, new Transaction() {
+
+			@Override
+			public void doTransation(EntityManager em) {
+				em.persist(d1); //throws exception since the name is null
+			}
+			
+		});
 	}
 }

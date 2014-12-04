@@ -8,12 +8,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Department {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	@NotNull
+	@Size(min=2, max=240)
 	private String name;
 	
 	@OneToMany(mappedBy="department")
