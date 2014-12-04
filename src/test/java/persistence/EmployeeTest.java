@@ -35,7 +35,6 @@ public class EmployeeTest {
 
 	@Test
 	public void testCreateEmployee() {
-		EntityManager em = emf.createEntityManager();
 		
 		final Employee employee = new Employee();
 		employee.setName("Employee-testCreateEmployee");
@@ -45,17 +44,20 @@ public class EmployeeTest {
 				em.persist(employee);
 			}
 		});
+
+		doTransaction(emf, new Transaction() {
+			public void doTransation(EntityManager em) {
+				List<Employee> employees = 
+					em.createQuery(
+						"SELECT e FROM Employee e WHERE e.name = "
+						+ "'Employee-testCreateEmployee'",
+						Employee.class).getResultList();
+				assertEquals(1, employees.size());
+				assertEquals("Employee-testCreateEmployee", 
+						employees.get(0).getName());
+			}
+		});
 		
-		em = emf.createEntityManager();
-		
-		List<Employee> employees = 
-			em.createQuery(
-				"SELECT e FROM Employee e WHERE e.name = 'Employee-testCreateEmployee'",
-				Employee.class).getResultList();
-		assertEquals(1, employees.size());
-		assertEquals("Employee-testCreateEmployee", employees.get(0).getName());
-		
-		em.close();
 	}
 
 }
