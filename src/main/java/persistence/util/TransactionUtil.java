@@ -17,6 +17,7 @@ public class TransactionUtil {
 	
 	public static void doTransaction(EntityManager em, Transaction t) {
 		EntityTransaction tx = null;
+		EMInjectorConstraintValidatorFactory.setThreadLocalEntityManager(em);
 		try{
 			tx = em.getTransaction();
 			tx.begin();
