@@ -114,4 +114,29 @@ public class DepartmentTest {
 			
 		});
 	}
+	
+	@Test(expected=ConstraintViolationException.class)
+	public void testValidationNotFull() {
+		final Department d = new Department();
+		d.setName("department-testValidationNotFull");
+		d.setSize(2);
+		final Employee e1 = new Employee();
+		final Employee e2 = new Employee();
+		final Employee e3 = new Employee();
+		d.addEmployee(e1);
+		d.addEmployee(e2);
+		d.addEmployee(e3);
+		
+		doTransaction(emf, new Transaction() {
+
+			@Override
+			public void doTransation(EntityManager em) {
+				em.persist(d); //throws exception since the name is null
+				em.persist(e1);
+				em.persist(e2);
+				em.persist(e3);
+			}
+			
+		});
+	}
 }

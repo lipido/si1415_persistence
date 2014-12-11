@@ -11,11 +11,14 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+@NotFull
 @Entity
 public class Department {
 	@Id
 	@GeneratedValue
 	private int id;
+	
+	private int size = 3;
 	
 	@NotNull
 	@Size(min=2, max=240)
@@ -37,6 +40,14 @@ public class Department {
 	
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getSize() {
+		return size;
+	}
+	
+	public void setSize(int size) {
+		this.size = size;
 	}
 	
 	public void addEmployee(Employee emp) {
