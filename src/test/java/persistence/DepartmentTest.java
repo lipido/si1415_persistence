@@ -14,6 +14,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import persistence.util.EMInjectorConstraintValidatorFactory;
 import persistence.util.Transaction;
 
 public class DepartmentTest {
@@ -25,7 +26,7 @@ public class DepartmentTest {
 		// reads the persistence.xml and
 		// creates or validates the tables if necessary
 		// and creates a connection pool
-		emf = Persistence.createEntityManagerFactory("si-database");
+		emf = Persistence.createEntityManagerFactory("si-database");		
 	}
 	
 	@AfterClass

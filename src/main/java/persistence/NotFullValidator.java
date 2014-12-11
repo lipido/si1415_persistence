@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 
 public class NotFullValidator implements ConstraintValidator<NotFull, Department> {
 	
-	@Inject EntityManager em; //we will not use it, but if we neeed it for a very complex validation, this would be a good approach
+	@Inject private EntityManager em; //we will not use it, but if we neeed it for a very complex validation, this would be a good approach
 
 	public void initialize(NotFull constraintAnnotation) {
     }

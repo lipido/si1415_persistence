@@ -7,6 +7,7 @@ import javax.persistence.EntityTransaction;
 public class TransactionUtil {
 	public static void doTransaction(EntityManagerFactory emf, Transaction t) {
 		EntityManager em = emf.createEntityManager();
+		EMInjectorConstraintValidatorFactory.setThreadLocalEntityManager(em);
 		try{
 			doTransaction(em, t);
 		}finally {
