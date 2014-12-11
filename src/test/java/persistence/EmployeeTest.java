@@ -1,7 +1,7 @@
 package persistence;
 
 import static org.junit.Assert.assertEquals;
-import static persistence.TransactionUtil.doTransaction;
+import static persistence.util.TransactionUtil.doTransaction;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import javax.persistence.Persistence;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import persistence.util.Transaction;
 public class EmployeeTest {
 
 	
