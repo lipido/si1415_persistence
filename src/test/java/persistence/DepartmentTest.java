@@ -1,14 +1,19 @@
 package persistence;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 import static persistence.util.TransactionUtil.doTransaction;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -139,5 +144,29 @@ public class DepartmentTest {
 			}
 			
 		});
+	}
+	
+	@Test
+	public void testValidationNotFullNoDatabase() {
+		final Department d = new Department();
+		d.setName("department-testValidationNotFull");
+		d.setSize(2);
+		final Employee e1 = new Employee();
+		final Employee e2 = new Employee();
+		final Employee e3 = new Employee();
+		d.addEmployee(e1);
+		d.addEmployee(e2);
+		d.addEmployee(e3);
+		
+		// Manual Bean Validation
+		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+	    Validator validator = factory.getValidator();
+	    
+	    // validate one employee. Since its department has @Valid, the 
+	    // department itself should be also validated and then a 
+	    // ConstraintViolation should be generated
+	    Set<ConstraintViolation<Employee>> violations = validator.validate(e3);
+	    
+	    assertTrue(violations.size()>0);
 	}
 }

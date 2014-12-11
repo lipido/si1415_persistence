@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.Valid;
 
 @Entity
 public class Employee {
@@ -16,6 +17,7 @@ public class Employee {
 	private double salary;
 	
 	@ManyToOne
+	@Valid
 	private Department department;
 	
 	public int getId() {
